@@ -1,1 +1,1 @@
-Solvable correctly by CallBack graph.
+Solvable correctly by CallbackGraph.
