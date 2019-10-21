@@ -15,6 +15,7 @@ bundle.uploadStr( something ); // uploadStr is async //> A2
 /// A1 | A2
 /// but A2 depends on A1
 
+
 /**
  * B
  * No then/catch reactions.
@@ -24,6 +25,7 @@ const p = new Promise( ( resolve, reject ) => { //> B1
 } );
 
 /// B1
+
 
 /**
  * C
@@ -44,6 +46,7 @@ const p2 = p.then( value => { //> C2
 
 /// C1 =/> C2
 
+
 /**
  * D
  * Should increment 1 to 2 and then log,
@@ -63,3 +66,21 @@ p3.then( increment );
 p3.then( logValue );
 
 /// D1 => D2 | D1 => D3 
+
+
+/**
+ * E
+ * Real example using mediaWiki JS code.
+ * In this case, the modules containing
+ * the api code will be loaded asynchronously
+ * using the `mw.loader.using` function.
+ * So when the next line of code is reached,
+ * `mw.Api` might not be defined yet, thus
+ * generating an error due to racing issues.
+ * 
+ */
+mw.loader.using( "mediaWiki.api" ); //> E1
+
+const api = new mw.Api(); //> E2
+
+/// E1 | E2
