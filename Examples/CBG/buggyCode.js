@@ -84,3 +84,22 @@ mw.loader.using( "mediaWiki.api" ); //> E1
 const api = new mw.Api(); //> E2
 
 /// E1 | E2
+
+/**
+ * F
+ * In this case, even though an `onRejection` reaction
+ * is regsitered, it's being registered too late. The 
+ * error propagates to the top level as uncaught.
+ * However, since the reaction is registered on a
+ * Promise that has been rejected, the chain will
+ * resume from there.
+ * TODO: check the CBG result. This might not be noticed
+ * by the CBG.
+ */
+const p = new Promise( ( resolve, reject ) => { //> F1
+	reject( "ERROR" );
+} );
+p.then( console.log.bind( console, "Success!" ) ); //> F2
+p.catch( console.warn.bind( console, "Error:" ) ); //> F3
+
+/// F1 => F2 | F1 => F3
