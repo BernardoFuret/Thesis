@@ -56,7 +56,7 @@ const p3 = p2.then( logValue );
 
 /**
  * E
- * Real example using mediaWiki JS code.
+ * Real example using MediaWiki JS code.
  * In this case, the modules containing
  * the api code will be loaded asynchronously
  * using the `mw.loader.using` function.
@@ -65,7 +65,7 @@ const p3 = p2.then( logValue );
  * generating an error due to racing issues.
  * 
  */
-mw.loader.using( "mediaWiki.api" ) //> E1
+mw.loader.using( "mediawiki.api" ) //> E1
 	.then( () => { //> E2
 		const api = new mw.Api();
 		// Do stuff with `api`.
