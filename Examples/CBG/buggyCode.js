@@ -103,3 +103,45 @@ p.then( console.log.bind( console, "Success!" ) ); //> F2
 p.catch( console.warn.bind( console, "Error:" ) ); //> F3
 
 /// F1 => F2 | F1 => F3
+
+
+/**
+ * G
+ * Here, the execution order is different than
+ * the order of the calls.
+ */
+async function asyncFunction() { //> G1
+	await null;
+	console.log( "async" );
+}
+
+function timedFunction() { //> G2
+	setTimeout( () => console.log( "time" ) )
+}
+
+function syncFunction() { //> G3
+	const st = Date.now();
+	while ( Date.now() - st < 2000 ) {
+		// do nothing
+	}
+	console.log( "sync" );
+}
+
+timedFunction();
+asyncFunction();
+syncFunction();
+/// G3 | G1 | G2
+// vs:
+Promise.resolve()
+	.then( timedFunction )
+	.then( asyncFunction )
+	.then( syncFunction )
+;
+/// G1 | G3 | G2
+// Doesn't wait for the timer, because the function is scheduled.
+
+// To have a similar result to the first case, would be: TODO: maybe not possible without scheduling asyncFunction with timers.
+// To solve this correctly, would be:
+function timedFunctionChanged() {
+	return new Promise( r => setTimeout( () => console.log( "time" ) || r() ) );
+}
