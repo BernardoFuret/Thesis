@@ -73,3 +73,18 @@ mw.loader.using( "mediawiki.api" ) //> E1
 ;
 
 /// E1 => E2
+
+/**
+ * F
+ * Create chain of async calls by using a loop.
+ * CBG does not support timers, but it should be able to
+ * generate the graph if the timer is commented out.
+ */
+[1, 2, 3, 4, 5].reduce( ( chain, i ) => {
+	return chain.then( () => new Promise( r => { 
+		window.setTimeout( () => {
+			console.log( i );
+			r();
+		}, 1000 );
+	} ) );
+}, Promise.resolve() );
