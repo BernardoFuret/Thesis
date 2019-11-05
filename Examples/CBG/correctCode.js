@@ -80,11 +80,36 @@ mw.loader.using( "mediawiki.api" ) //> E1
  * CBG does not support timers, but it should be able to
  * generate the graph if the timer is commented out.
  */
-[1, 2, 3, 4, 5].reduce( ( chain, i ) => {
-	return chain.then( () => new Promise( r => { 
+[ 1, 2, 3, 4, 5 ].reduce( ( chain, i ) => {
+	return chain.then( () => new Promise( r => { ///> Fi
 		window.setTimeout( () => {
 			console.log( i );
 			r();
 		}, 1000 );
 	} ) );
 }, Promise.resolve() );
+
+/// F1 => F2 => F3 => F4 => F5
+
+/**
+ * G
+ * Example with `finally`. Code is correct, but the CBG
+ * might have trouble due to no supporting `finally`.
+ * Test? Extend?
+ * Compare with example B:
+ * 	then( onRes ) -> catch( onErr )
+ * 	VS
+ * 	then( onRes, onRej )
+ */
+new Promise( ( resolve, reject ) => { //> G1
+	if ( Math.random() < 0.5 ) {
+		resolve( "A" );
+	} else {
+		reject( "B" );
+	}
+} ).finally(
+	() => console.log( "Promise ready" )
+).then(
+	console.log.bind( console, "Should be A:" ),
+	console.log.bind( console, "Should be B:" ),
+);
