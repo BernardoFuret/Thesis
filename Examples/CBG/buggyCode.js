@@ -145,3 +145,21 @@ Promise.resolve()
 function timedFunctionChanged() {
 	return new Promise( r => setTimeout( () => console.log( "time" ) || r() ) );
 }
+
+/**
+ * H
+ * In this example, a server is being created, using Node.js `net` API.
+ * The method `listen` will start a TCP server listening on the given port.
+ * Once that method is called, it will emit the `listening` event. If no callback
+ * is provided with this method, the handler can still be registered through
+ * the `on` method.
+ * However, like the example shows, the developer may register the handler only
+ * after the call of the `listen` method, meaning the handler will never be called.
+ */
+const server = net.createServer( () => {} ).listen( 8080 ); //> H1
+
+server.on( 'listening', () => { //> H2
+	console.log( 'Listening' );
+} );
+
+/// H1

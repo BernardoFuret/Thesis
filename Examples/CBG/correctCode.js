@@ -113,3 +113,23 @@ new Promise( ( resolve, reject ) => { //> G1
 	console.log.bind( console, "Should be A:" ),
 	console.log.bind( console, "Should be B:" ),
 );
+
+/**
+ * H
+ * In this example, a server is being created, using Node.js `net` API.
+ * The method `listen` will start a TCP server listening on the given port.
+ * Once that method is called, it will emit the `listening` event. If no callback
+ * is provided with this method, the handler can still be registered through
+ * the `on` method.
+ * Code her executes correctly: the handler is registered, then the server listens.
+ * Once it starts listening, it will call the registered handler.
+ */
+const server = net.createServer( () => {} ); //> H1
+
+server.on( 'listening', () => { //> H2
+	console.log( 'Listening' );
+} );
+
+server.listen( 8080 ); //> H3
+
+/// H1 => H3 => H2
