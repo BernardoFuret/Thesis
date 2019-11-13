@@ -121,7 +121,7 @@ new Promise( ( resolve, reject ) => { //> G1
  * Once that method is called, it will emit the `listening` event. If no callback
  * is provided with this method, the handler can still be registered through
  * the `on` method.
- * Code her executes correctly: the handler is registered, then the server listens.
+ * Code here executes correctly: the handler is registered, then the server listens.
  * Once it starts listening, it will call the registered handler.
  */
 const server = net.createServer( () => {} ); //> H1
