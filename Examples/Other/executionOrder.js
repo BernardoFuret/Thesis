@@ -39,16 +39,8 @@ setImmediate( console.log, "immediate" );
 
 /**
  * C
- * The outer setTimeout callback will be queued
- * at the Timers phase and will be executed.
- * So when the callback is executed, the current phase
- * is the Timers phase, adding the nested setTimeout
- * callback to the queue and only then travels to
- * the next phase, until it reaches the Check phase.
- * However, the setTimeout timer needs to be checked first.
- * This is done in one iteration of the loop, meaning it will
- * only fire its callback at the next iteration
- * (worst case scenario).
+ * SetTimeout creates a macrotask. If macrotasks are queued during their
+ * respective phase, they will only be executed in the next iteration.
  * https://stackoverflow.com/questions/24117267/nodejs-settimeoutfn-0-vs-setimmediatefn/24119936#24119936
  * Order is "immediate" -> "time".
  */
