@@ -35,9 +35,7 @@ const p = new Promise( ( resolve, reject ) => { //> B1
 
 /**
  * D
- * Should increment 1 to 2 and then log,
- * but the callbacks are registered on the original promise.
- * AKA broken promise (forked)
+ * Increments 1 to 2 and then logs.
  */
 const logValue = console.log.bind( console, "Value should be 2:" ); //> D2
 
