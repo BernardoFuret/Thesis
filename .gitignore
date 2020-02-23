@@ -3,3 +3,10 @@ Articles/
 
 *.txt
 test.js
+
+.babelrc
+
+node_modules/
+
+build/
+out/
